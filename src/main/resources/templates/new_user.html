@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header b {
+            margin-right: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div>
+            Your login is: <b th:text="${#httpServletRequest.remoteUser}"></b>
+        </div>
+        <form th:action="@{/logout}" method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+    <form th:method="POST" th:action="@{/createUser}" th:object="${user}">
+        <div>
+            <label for="name">Enter name :</label>
+            <input type="text" th:field="*{name}" id="name"/>
+        </div>
+        <div>
+            <label for="lastName">Enter lastname :</label>
+            <input type="text" th:field="*{lastName}" id="lastName"/>
+        </div>
+        <div>
+            <label for="age">Enter age :</label>
+            <input type="text" th:field="*{age}" id="age"/>
+        </div>
+        <div>
+            <label for="email">Enter email :</label>
+            <input type="text" th:field="*{email}" id="email"/>
+        </div>
+        <div>
+            <label for="userName">Enter username :</label>
+            <input type="text" th:field="*{userName}" id="userName"/>
+        </div>
+        <div>
+            <label for="password">Enter password :</label>
+            <input type="text" th:field="*{password}" id="password"/>
+        </div>
+        <div>
+            <label for="roles">Select roles :</label>
+            <select multiple size="2" name="listRoleId" required>
+                <option value="1">ROLE_ADMIN</option>
+                <option selected="selected" value="2">ROLE_USER</option>
+            </select>
+        </div>
+        <input type="submit" value="Create!"/>
+    </form>
+</div>
+</body>
+</html>

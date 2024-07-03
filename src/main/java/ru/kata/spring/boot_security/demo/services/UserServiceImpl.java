@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.services;
 
 
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,32 +14,40 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    @Transactional
     @Override
-    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
-    }
 
-    @Override
+        return userRepository.findAll();
+    }
     @Transactional
-    public void saveUser(User user) {
-        userRepository.saveUser(user);
+    @Override
+    public void create(User user) {
+        userRepository.save(user);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public User getUser(int id) {
-
-        return userRepository.getUser(id);
-    }
-
-    @Override
     @Transactional
-    public void deleteUser(int id) {
-        userRepository.deleteUser(id);
+    @Override
+    public void delete(long id) {
+        userRepository.deleteById(id);
+    }
+    @Transactional
+    @Override
+    public void update(User user) {
+        userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
+    public User getById(long id) {
+        User user = userRepository.findById(id).orElse(null);
+        Hibernate.initialize(user.getRoleSet());
+        return user;
     }
 }

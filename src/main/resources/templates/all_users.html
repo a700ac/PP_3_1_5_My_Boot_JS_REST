@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header b {
+            margin-right: 10px;
+        }
+        .user-list a {
+            display: block;
+            margin: 5px 0;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .user-list a:hover {
+            text-decoration: underline;
+        }
+        .create-user {
+            margin-top: 20px;
+        }
+        .logout-form {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        Your login is: <b th:text="${#httpServletRequest.remoteUser}"></b>
+        <form th:action="@{/logout}" method="POST" class="logout-form">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+
+    <div class="user-list" th:each="user : ${users}">
+        <a th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.getName()} + ' ' + ${user.getLastName()}">user</a>
+    </div>
+
+    <hr/>
+
+    <div class="create-user">
+        <form th:method="GET" th:action="@{/newUser}">
+            <input type="submit" value="Create a new user!"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
