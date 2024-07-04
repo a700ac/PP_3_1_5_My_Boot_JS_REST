@@ -72,37 +72,38 @@
     </div>
     <form th:method="POST" th:action="@{/createUser}" th:object="${user}">
         <div>
-            <label for="name">Enter name :</label>
+            <label for="name">Name :</label>
             <input type="text" th:field="*{name}" id="name"/>
         </div>
         <div>
-            <label for="lastName">Enter lastname :</label>
+            <label for="lastName">Lastname :</label>
             <input type="text" th:field="*{lastName}" id="lastName"/>
         </div>
         <div>
-            <label for="age">Enter age :</label>
+            <label for="age">Age :</label>
             <input type="text" th:field="*{age}" id="age"/>
         </div>
         <div>
-            <label for="email">Enter email :</label>
+            <label for="email">Email :</label>
             <input type="text" th:field="*{email}" id="email"/>
         </div>
         <div>
-            <label for="userName">Enter username :</label>
+            <label for="userName">Login :</label>
             <input type="text" th:field="*{userName}" id="userName"/>
         </div>
         <div>
-            <label for="password">Enter password :</label>
+            <label for="password">Password :</label>
             <input type="text" th:field="*{password}" id="password"/>
         </div>
+
         <div>
             <label for="roles">Select roles :</label>
             <select multiple size="2" name="listRoleId" required>
-                <option value="1">ROLE_ADMIN</option>
-                <option selected="selected" value="2">ROLE_USER</option>
+                <option value="2">ROLE_ADMIN</option>
+                <option selected="selected" value="1">ROLE_USER</option>
             </select>
         </div>
-        <input type="submit" value="Create!"/>
+        <input type="submit" value="Create"/>
     </form>
 </div>
 </body>

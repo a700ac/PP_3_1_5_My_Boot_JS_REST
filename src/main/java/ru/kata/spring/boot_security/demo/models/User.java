@@ -42,6 +42,7 @@ public class User implements UserDetails {
         this.userName = userName;
         this.password = password;
         this.roleSet = roleSet;
+
     }
 
     public User() {

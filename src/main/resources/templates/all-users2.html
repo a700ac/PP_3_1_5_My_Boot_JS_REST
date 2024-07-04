@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .logout-form {
+            margin-left: auto;
+        }
+        .logout-form input[type="submit"] {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .logout-form input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+        .create-user {
+            margin-top: 20px;
+        }
+        .operations {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .operations form {
+            display: inline;
+        }
+        .operations form input[type="submit"] {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .operations form input[type="submit"]:hover {
+            background-color: #b8b7b7;
+        }
+        .edit-link {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .edit-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div>Your login is: <b th:text="${#httpServletRequest.remoteUser}"></b></div>
+        <form th:action="@{/logout}" method="POST" class="logout-form">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+    <h2>All users</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Roles</th>
+            <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usr : ${users}">
+            <td th:text="${usr.id}">Id</td>
+            <td th:text="${usr.name}">Name</td>
+            <td th:text="${usr.lastName}">Last name</td>
+            <td th:text="${usr.email}">Email</td>
+            <td th:text="${usr.age}">Age</td>
+            <td th:text="${usr.userName}">Login</td>
+            <td th:text="${usr.password}">Password</td>
+            <td>
+                <ul>
+                    <li th:each="role : ${usr.roleSet}" th:text="${role.name}"></li>
+                </ul>
+            </td>
+            <td class="operations">
+                <a th:href="@{/editUser/{id}(id=${usr.id})}" class="edit-link">Edit user</a>
+                <form th:method="post" th:action="@{/deleteUser/{id}(id=${usr.id})}">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="submit" value="DELETE"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="create-user">
+        <form th:method="GET" th:action="@{/newUser}">
+            <input type="submit" value="New user"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

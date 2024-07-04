@@ -20,11 +20,11 @@
 <span th:each="userRole : ${user.getRoleSet()}">
     <p th:text="${userRole.getName()}">VALUE</p>
 </span>
-<a th:href="@{/editUser/{id}(id=${user.getId()})}">Edit!</a>
+<a th:href="@{/editUser/{id}(id=${user.getId()})}">Edit user</a>
 <br/>
 <br/>
 <form th:method="DELETE" th:action="@{/deleteUser/{id}(id=${user.getId()})}">
-    <input type="submit" value="DELETE!"/>
+    <input type="submit" value="DELETE"/>
 </form>
 </body>
 </html>
