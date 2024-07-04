@@ -33,12 +33,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/user")
-    public String getHome(@AuthenticationPrincipal User activeUser, Model model) {
-        model.addAttribute("roles", activeUser.getRoleSet());
-        model.addAttribute("user", activeUser);
-        return "home_page";
-    }
+
     @GetMapping(value = "/user/{id}")
     public String getUserById(@PathVariable("id") int id, Model model) {
         User user = userService.getById(id);

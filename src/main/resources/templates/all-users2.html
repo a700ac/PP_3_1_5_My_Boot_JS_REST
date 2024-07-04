@@ -115,7 +115,6 @@
             <th>Email</th>
             <th>Age</th>
             <th>Login</th>
-            <th>Password</th>
             <th>Roles</th>
             <th>Operations</th>
         </tr>
@@ -128,7 +127,7 @@
             <td th:text="${usr.email}">Email</td>
             <td th:text="${usr.age}">Age</td>
             <td th:text="${usr.userName}">Login</td>
-            <td th:text="${usr.password}">Password</td>
+
             <td>
                 <ul>
                     <li th:each="role : ${usr.roleSet}" th:text="${role.name}"></li>
