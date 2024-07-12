@@ -9,7 +9,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 @Controller
 public class UserController {
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/home_page")
     public String getHome(@AuthenticationPrincipal User activeUser, Model model) {
         model.addAttribute("roles", activeUser.getRoleSet());
         model.addAttribute("user", activeUser);
