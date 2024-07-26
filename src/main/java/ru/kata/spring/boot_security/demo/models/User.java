@@ -28,6 +28,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private int age;
+    private String email;
+    private String department;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
@@ -41,10 +43,12 @@ public class User implements UserDetails {
     }
 
 
-    public User(String username, String password, int age, Set<Role> roles) {
+    public User(String username, String password, int age, String email, String department, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.age = age;
+        this.email = email;
+        this.department = department;
         this.roles = roles;
     }
 
@@ -124,17 +128,33 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return age == user.age && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return age == user.age && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(department, user.department) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, age, roles);
+        return Objects.hash(id, username, password, age, email, department, roles);
     }
 
     @Override
@@ -144,6 +164,8 @@ public class User implements UserDetails {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", age=" + age +
+                ", email='" + email + '\'' +
+                ", department='" + department + '\'' +
                 ", roles=" + roles +
                 '}';
     }

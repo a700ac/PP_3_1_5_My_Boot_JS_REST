@@ -19,7 +19,6 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
         return entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
                 .setParameter("username", username)
@@ -27,13 +26,11 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     @Override
-    @Transactional
     public User findUserById(Long id) {
         return entityManager.find(User.class, id);
     }

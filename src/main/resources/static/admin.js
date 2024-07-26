@@ -37,15 +37,17 @@ fetch("/api/admin/current").then(res => res.json())
 function showUsers(table) {
     let temp = "";
     table.forEach(user => {
-        temp += "<tr>"
-        temp += "<td>" + user.id + "</td>"
-        temp += "<td>" + user.username + "</td>"
-        temp += "<td>" + user.password + "</td>" // Добавьте эту строку
-        temp += "<td>" + user.age + "</td>"
-        temp += "<td>" + user.roles.map(role => role.name).join(" ") + "</td>"
-        temp += "<td>" + `<a onclick='showEditModal(${user.id})' class="btn btn-outline-info" id="edit">Edit</a>` + "</td>"
-        temp += "<td>" + `<a onclick='showDeleteModal(${user.id})' class="btn btn-outline-danger" id="delete">Delete</a>` + "</td>"
-        temp += "</tr>"
+        temp += `<tr>
+            <td>${user.id}</td>
+            <td>${user.username}</td>
+            <td class="password-column">${user.password}</td>
+            <td>${user.age}</td>
+            <td>${user.email}</td>
+            <td>${user.department}</td>
+            <td>${user.roles.map(role => role.name).join(" ")}</td>
+            <td><a onclick='showEditModal(${user.id})' class="btn btn-outline-info" id="edit">Edit</a></td>
+            <td><a onclick='showDeleteModal(${user.id})' class="btn btn-outline-danger" id="delete">Delete</a></td>
+        </tr>`;
         document.getElementById("allUsersBody").innerHTML = temp;
     })
 }
@@ -70,6 +72,8 @@ function showOneUser(user) {
     temp += "<td>" + user.username + "</td>"
     temp += "<td>" + user.password + "</td>" // Добавлено отображение пароля
     temp += "<td>" + user.age + "</td>"
+    temp += "<td>" + user.email + "</td>"
+    temp += "<td>" + user.department + "</td>"
     temp += "<td>" + user.roles.map(role => role.name).join(" ") + "</td>"
     temp += "</tr>"
     document.getElementById("oneUserBody").innerHTML = temp;
@@ -109,6 +113,8 @@ function addNewUser(form) {
         username: newUserForm.get('username'),
         password: newUserForm.get('password'),
         age: newUserForm.get('age'),
+        email: newUserForm.get('email'),
+        department: newUserForm.get('department'),
         roles: rolesUser("#roles")
     };
 
@@ -144,6 +150,8 @@ function showDeleteModal(id) {
             document.getElementById('usernameDel').setAttribute('value', deleteUser.username);
             document.getElementById('passwordDel').setAttribute('value', deleteUser.password);
             document.getElementById('ageDel').setAttribute('value', deleteUser.age);
+            document.getElementById('emailDel').setAttribute('value', deleteUser.email);
+            document.getElementById('departmentDel').setAttribute('value', deleteUser.department);
 
             if (getRoles(deleteUser.roles).includes("USER") && getRoles(deleteUser.roles).includes("ADMIN")) {
                 document.getElementById('rolesDel1').setAttribute('selected', 'true');
@@ -189,6 +197,9 @@ function showEditModal(id) {
             document.getElementById('usernameRed').setAttribute('value', editUser.username);
             document.getElementById('passwordRed').setAttribute('value', editUser.password);
             document.getElementById('ageRed').setAttribute('value', editUser.age);
+            document.getElementById('emailRed').setAttribute('value', editUser.email);
+            document.getElementById('departmentRed').setAttribute('value', editUser.department);
+
 
             if ((editUser.roles.map(role => role.id)) === 1 && ((editUser.roles.map(role => role.id)) === 2)) {
                 document.getElementById('rolesRed1').setAttribute('selected', 'true');
@@ -212,6 +223,8 @@ function submitFormEditUser(event) {
         username: redUserForm.get('username'),
         password: redUserForm.get('password'),
         age: redUserForm.get('age'),
+        email: redUserForm.get('email'),
+        department: redUserForm.get('department'),
         roles: rolesUser("#rolesRed")
     }
     console.log(user);
