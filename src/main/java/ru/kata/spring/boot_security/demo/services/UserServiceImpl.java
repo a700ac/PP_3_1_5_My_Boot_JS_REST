@@ -37,26 +37,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public User showUserById(Long id) {
             return userDao.findUserById(id);
     }
 
     @Override
-    @Transactional
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(Long id) {
         userDao.deleteUser(id);
     }
 
     @Override
-    @Transactional
     public void updateUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.updateUser(user);

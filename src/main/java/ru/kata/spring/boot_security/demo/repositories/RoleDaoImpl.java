@@ -17,7 +17,6 @@ public class RoleDaoImpl implements RoleDAO {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public Set<Role> getAllRoles() {
         List<Role> roleList = entityManager.createQuery("SELECT r FROM Role r", Role.class).getResultList();
         Set<Role> roleSet = new LinkedHashSet<>(roleList);
@@ -31,7 +30,6 @@ public class RoleDaoImpl implements RoleDAO {
     }
 
     @Override
-    @Transactional
     public Role findRoleById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID cannot be null");
@@ -39,7 +37,7 @@ public class RoleDaoImpl implements RoleDAO {
         return entityManager.find(Role.class, id);
     }
 
-    @Transactional
+    @Override
     public Role findRoleByName(String name) {
         try {
             return entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :name", Role.class)
@@ -50,7 +48,7 @@ public class RoleDaoImpl implements RoleDAO {
         }
     }
 
-
+    @Override
     public Set<Role> findByIds(Set<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return new HashSet<>();
