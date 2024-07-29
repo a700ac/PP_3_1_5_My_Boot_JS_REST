@@ -23,7 +23,6 @@ public class RoleDaoImpl implements RoleDAO {
         return roleSet;
     }
     @Override
-    @Transactional
     public Role createRole(Role role) {
         entityManager.persist(role);
         return role;
