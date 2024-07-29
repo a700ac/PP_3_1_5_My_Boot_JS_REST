@@ -6,7 +6,6 @@ import ru.kata.spring.boot_security.demo.models.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import java.util.*;
 
